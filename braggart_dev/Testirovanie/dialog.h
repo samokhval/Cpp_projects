@@ -14,9 +14,9 @@ class Dialog : public QDialog
     Q_OBJECT
 
 public:
-    const int max = 5;//количество вопросов в тесте
+    const int max = 10;//количество вопросов в тесте
     int count = 0;
-    int answer = 0;
+    //int answer = 0;
     int count1,count2;
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
