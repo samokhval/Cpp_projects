@@ -6,10 +6,11 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(next_q()));
+
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(GetDataBase()));
     connect(ui->lineEdit,SIGNAL(returnPressed()),this ,SLOT(ChangeAnswer()));
     ui->lineEdit->setValidator(new QIntValidator(0, 81, this));
+    ui->lineEdit->setAlignment(Qt::AlignVCenter);
 }
 
 Dialog::~Dialog()
