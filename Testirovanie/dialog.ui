@@ -10,6 +10,12 @@
     <height>447</height>
    </rect>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>424</width>
+    <height>469</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Проверь свои знания таблицы умножения</string>
   </property>
