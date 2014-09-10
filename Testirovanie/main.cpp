@@ -111,11 +111,15 @@ void Dialog::GetDataBase()
     right = right - 4;
     QSqlQuery query;
 
+    setGeometry(QRect(200,200,424,469));
+    setMinimumSize(424,469);
+    setMaximumSize(424,469);
+
     if (!query.exec("SELECT * FROM questions;")) {
     qDebug() << "Невозможно выполнить запрос — exiting";
     return;
     }
-    int nID = 1;
+    int nID;
     int step = 0;
     QSqlRecord rec = query.record();
     QString StrQuestion;
@@ -135,6 +139,7 @@ void Dialog::GetDataBase()
 
     if (CharResult == "+")
        right++;
+
     else
        wrong++;
     TextResult = query.value(rec.indexOf("text_result")).toString();
@@ -155,9 +160,8 @@ void Dialog::GetDataBase()
 
     ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
 
-    setGeometry(QRect(200,200,424,469));
-    setMaximumSize(424,469);
     ui->tableWidget->setVisible(true);
+    ui->pushButton_2->setVisible(false);
     repaint();
 }
 
