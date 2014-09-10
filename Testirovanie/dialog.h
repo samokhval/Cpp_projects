@@ -15,8 +15,8 @@ class Dialog : public QDialog
 
 public:
     const int max = 10;//количество вопросов в тесте
-    int count = 0;
-    //int answer = 0;
+    int count = 1;
+    int right, wrong = 0;
     int count1,count2;
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
@@ -28,7 +28,7 @@ public:
 private:
 
 public slots:
-    void next_q();
+    //void next_q();
     void GetDataBase();
     void ChangeAnswer();
 
