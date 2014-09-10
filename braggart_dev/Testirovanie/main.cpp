@@ -156,7 +156,7 @@ void Dialog::GetDataBase()
     ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
 
     setGeometry(QRect(200,200,424,469));
-    w.setMaximumSize(424,469);
+    setMaximumSize(424,469);
     ui->tableWidget->setVisible(true);
     repaint();
 }
