@@ -11,7 +11,7 @@ Dialog::Dialog(QWidget *parent) :
     connect(ui->lineEdit,SIGNAL(returnPressed()),this ,SLOT(ChangeAnswer()));
     ui->lineEdit->setValidator(new QIntValidator(0, 81, this));
     ui->lineEdit->setAlignment(Qt::AlignVCenter);
-}
+ }
 
 Dialog::~Dialog()
 {
