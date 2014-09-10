@@ -81,8 +81,11 @@ void Dialog::ChangeAnswer()
         if ((count!=1) && (count < max+1))
         {QTime time = QTime::currentTime();
             qsrand((uint)time.msec());
-            count1 = randInt(2,9);
-            count2 = randInt(2,9);
+
+            count1 = qrand() % ((9 + 1) - 2) + 2;
+            count2 = qrand() % ((9 + 1) - 2) + 2;
+//            count1 = randInt(2,9);
+//            count2 = randInt(2,9);
             ui->label_2->setText(QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2));
             ui->label->setText(QString(" %1 %2 %3 %4").arg("Вопрос ").arg(count).arg(" из ").arg(max));
             repaint();
@@ -181,7 +184,7 @@ int main(int argc, char *argv[])
 
     w.ui->lineEdit->setCursorPosition(0);
     w.ui->lineEdit->setEnabled(true);
-    w.ui->label_2->setText(QString(" %1 %2 %3 ").arg(w.count1).arg(" * ").arg(w.count2));
+    w.ui->label_2->setText(QString(" %1 %2 %3 ").arg(w.count1).arg("*").arg(w.count2));
     w.ui->label->setText(QString(" %1 %2 %3 %4").arg("Вопрос ").arg(w.count).arg(" из ").arg(w.max));
     w.repaint();
 
