@@ -44,6 +44,30 @@ void Dialog::CreateTable()
     }
 }
 
+//проверка значений на дублирование
+bool Dialog::CheckDublicate()
+{
+    QString strS1 = QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2);
+    QString strS2 = QString(" %1 %2 %3 ").arg(count2).arg("*").arg(count1);
+
+    QSqlQuery query;
+    bool dublicate;
+
+    query.exec("SELECT * FROM questions;");
+
+    QSqlRecord rec = query.record();
+    while (query.next())
+    {
+        QString StrQuestion = query.value(rec.indexOf("question")).toString();
+        if ((StrQuestion == strS1) || (StrQuestion == strS2))
+        {
+            dublicate = true;
+            return dublicate;
+        }
+    }
+    return dublicate;
+}
+
 void Dialog::ChangeAnswer()
 {
     QString result,text_result;
@@ -84,8 +108,13 @@ void Dialog::ChangeAnswer()
 
             count1 = qrand() % ((9 + 1) - 2) + 2;
             count2 = qrand() % ((9 + 1) - 2) + 2;
-//            count1 = randInt(2,9);
-//            count2 = randInt(2,9);
+
+            while (CheckDublicate())
+            {
+                count1 = qrand() % ((9 + 1) - 2) + 2;
+                count2 = qrand() % ((9 + 1) - 2) + 2;
+            }
+
             ui->label_2->setText(QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2));
             ui->label->setText(QString(" %1 %2 %3 %4").arg("Вопрос ").arg(count).arg(" из ").arg(max));
             repaint();
@@ -159,10 +188,9 @@ void Dialog::GetDataBase()
 
     step++;
     }
-    qDebug() << right << " - " << wrong;
 
     ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
-
+    ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);
     ui->tableWidget->setVisible(true);
     ui->pushButton_2->setVisible(false);
     repaint();

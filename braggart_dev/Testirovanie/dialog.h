@@ -13,22 +13,24 @@ class Dialog : public QDialog
 {
     Q_OBJECT
 
-public:
-    const int max = 10;//количество вопросов в тесте
-    int count = 1;
-    int right, wrong = 0;
-    int count1,count2;
+public:    
     explicit Dialog(QWidget *parent = 0);
     ~Dialog();
     Ui::Dialog *ui;
-    void CreateTable();
+
+    const int max = 10; //количество вопросов в тесте
+    int count = 1; //начальное значение счётчика
+    int right, wrong = 0;//переменные подсчёта правильный и неправильных ответов
+    int count1,count2;//переменные для хранения множителей
+
+    void CreateTable(); //создание таблицы
+    bool CheckDublicate();//проверка дублирования вопросов
     void InsertValue(int, QString, int, int, QString, QString);
     int randInt(int, int);
 
 private:
 
 public slots:
-    //void next_q();
     void GetDataBase();
     void ChangeAnswer();
 
