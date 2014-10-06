@@ -15,16 +15,14 @@ class tQuestion : public ITestInterface
     bool dublicate;
 
 public:
+
     void getNextQuestion();
     int getAnswer();
     void setQuestion();
     int getQuestionsNumber();
-//    int getCurrentQuestionNumber();
+    int getCurrentQuestionNumber() { return 0; }
     void getDetailedReport();
-
-signals:
-
-public slots:
+    void getTestResult() {}
 
 };
 
