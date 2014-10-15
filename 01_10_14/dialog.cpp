@@ -1,5 +1,5 @@
 #include "dialog.h"
-#include "tquestion.cpp"
+#include "tquestion.h"
 #include "tdatabase.h"
 #include "ui_dialog.h"
 
@@ -34,6 +34,7 @@ void Dialog::StartTest()
  ui->lineEdit->setEnabled(true);
  ui->lineEdit->setCursorPosition(0);
  ui->lineEdit->setAlignment(Qt::AlignHCenter);
+ setEnable();
 }
 
 int Dialog::getLineEdit()
@@ -48,17 +49,25 @@ void Dialog::on_pushButton_3_clicked()
 
 void Dialog::RepaintForm(int count, int count1, int count2)
 {
-    ui->label_2->setText(QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2));
+    Dialog dlg;
+    qDebug() << "Получили count = " << count << " count2 = " << count1<< " count2 = " << count2;
+    QString sText = QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2);
+    qDebug() << "Текст для вывода в метку: " << sText;
+    ui->label_2->setText(sText);
+    qDebug() << "Текст метки " << ui->label_2->text();
     ui->label->setText(QString(" %1 %2 %3 %4").arg("Вопрос ").arg(count).arg(" из ").arg(max));
-    repaint();
+    dlg.repaint();
+    qDebug() << "Сейчас должна быть прорисовка";
 }
 
 void Dialog::setEnable()
 {
     ui->lineEdit->setEnabled(true);
+
     ITestInterface *pQuestion;
     pQuestion = new tQuestion();
     pQuestion->getNextQuestion();
+
 }
 
 void Dialog::setDisable()
@@ -92,6 +101,7 @@ void Dialog::setItem(QString first, QString second, int three, int four,int step
 
 void Dialog::GetResult(QString result)
 {
+    qDebug() << result;
     ui->label_5->setText(result);
     ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);
     ui->tableWidget->setVisible(true);
@@ -107,7 +117,8 @@ void Dialog::showResult()
 
 void Dialog::GenerateQuestion()
 {
-  tQuestion quest;
   ui->lineEdit->clear();
-  quest.getNextQuestion();
+  ITestInterface *pQuestion;
+  pQuestion = new tQuestion(1);
+  pQuestion->getNextQuestion();
 }

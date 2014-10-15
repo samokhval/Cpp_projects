@@ -11,16 +11,21 @@ const int max = 10;
 
 class tQuestion : public ITestInterface
 {
-    int numb, count;
     bool dublicate;
+    int count;
+    int step;
+    QString result;
+    QString text_result;
 
 public:
-
+    tQuestion(){count=0;}
+    tQuestion(int i){count=count + i;}
     void getNextQuestion();
     int getAnswer();
+    void InsertAnswer(int count1, int count2);
     void setQuestion();
     int getQuestionsNumber();
-    int getCurrentQuestionNumber() { return 0; }
+    //int getCurrentQuestionNumber(int i) { step = i + 1; return step; }
     void getDetailedReport();
     void getTestResult() {}
 

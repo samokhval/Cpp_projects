@@ -9,14 +9,29 @@ int tQuestion::getAnswer()
   return answer;
 }
 
+void tQuestion::InsertAnswer(int count1, int count2)
+{
+    tDataBase base;
+    QString strIn = QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2);
+
+    if (count1*count2 == getAnswer())
+    {
+        result = "+";
+        text_result = "Отлично! Вы ответили правильно!";
+    }
+    else
+    {
+        result = "-";
+        text_result = "Ответ неверный! Нужно еще учить";
+    }
+
+    base.InsertValue(count, strIn, count1*count2, getAnswer(), result, text_result);
+}
+
 void tQuestion::getNextQuestion()
 {
     tDataBase base;
     Dialog dlg;
-
-    count++;
-
-    int ct = count;
 
     if (count > max)
     {
@@ -24,25 +39,33 @@ void tQuestion::getNextQuestion()
     }
     else
     {
-        if ((count!=1) && (count < max+1))
-        {QTime time = QTime::currentTime();
-            qsrand((uint)time.msec());
 
-            int count1 = qrand() % ((9 + 1) - 2) + 2;
-            int count2 = qrand() % ((9 + 1) - 2) + 2;
+        QTime time = QTime::currentTime();
+        qsrand((uint)time.msec());
 
-            while (base.CheckDublicate(count1,count2))
+        int count1 = qrand() % ((9 + 1) - 2) + 2;
+        int count2 = qrand() % ((9 + 1) - 2) + 2;
+
+        if (count < max+1)
+        {
+            InsertAnswer(count1,count2);
+
+            if (count > 1)
             {
-                count1 = qrand() % ((9 + 1) - 2) + 2;
-                count2 = qrand() % ((9 + 1) - 2) + 2;
-            }
+                if (base.CheckDublicate(count1,count2))
+                {
+                    count1 = qrand() % ((9 + 1) - 2) + 2;
+                    count2 = qrand() % ((9 + 1) - 2) + 2;
+                }
 
-            dlg.RepaintForm(ct,count1,count2);
+            }
+            qDebug() << count << " " << count1 << " " << count2;
+            dlg.RepaintForm(count,count1,count2);
          }
+
+
     }
 }
-
-
 
 int tQuestion::getQuestionsNumber(){return max;}
 

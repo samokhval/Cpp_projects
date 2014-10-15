@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSqlQuery>
 #include <QTableWidgetItem>
+#include <QTableWidget>
 #include <QSqlRecord>
 
 class tDataBase
@@ -25,6 +26,7 @@ class tDataBase
 public:
     tDataBase();
     //~tDataBase();
+    void CreateTable();
     void InsertValue(int i, QString StrIn, int count, int answer, QString result, QString text_result);
     bool CheckDublicate(int count1, int count2);
 
