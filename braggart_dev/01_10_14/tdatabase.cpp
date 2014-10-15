@@ -3,13 +3,31 @@
 
 tDataBase::tDataBase()
 {
+right = 4;
+wrong = 0;
+}
+
+void tDataBase::CreateTable()
+{
     mSqlDatabase = QSqlDatabase::addDatabase("QSQLITE");
     mSqlDatabase.setDatabaseName(":memory:");
     if (!mSqlDatabase.open())
     {
        qDebug() << "Невозможно открыть временную базу";
     }
-    // Создаем таблицу    
+    else
+    {
+       qDebug() << "Временная база  " << mSqlDatabase.databaseName() << "создана";
+    }
+
+    QSqlQuery query;
+    QString str3 = QString("%1 %2").arg("USE").arg(mSqlDatabase.databaseName());
+    if (query.exec(str3))
+    {
+        qDebug() << "Временная база установлена по умолчанию";
+    }
+
+    // Создаем таблицу
     QString str = "CREATE TABLE questions ( "
     "id INTEGER AUTO_INCREMENT, "
     "question VARCHAR(15), "
@@ -28,7 +46,6 @@ tDataBase::tDataBase()
 
 void tDataBase::InsertValue(int i, QString StrIn, int count, int answer, QString result, QString text_result)
 {
-    //QSqlQuery query;
     QString strF =
     "INSERT INTO questions (id, question, right_answer, user_answer, result, text_result) "
     "VALUES(%1, '%2', %3, %4, '%5', '%6');";
@@ -38,6 +55,10 @@ void tDataBase::InsertValue(int i, QString StrIn, int count, int answer, QString
     {
         qDebug() << "Невозможно осуществить операцию вставки данных!";
     }
+    //else
+    //{
+    //    qDebug() << "Данные успешно добавлены в таблицу!";
+    //}
 }
 
 void tDataBase::getTestResult()
@@ -82,10 +103,18 @@ bool tDataBase::CheckDublicate(int count1, int count2)
     QString strS1 = QString(" %1 %2 %3 ").arg(count1).arg("*").arg(count2);
     QString strS2 = QString(" %1 %2 %3 ").arg(count2).arg("*").arg(count1);
 
-        query.exec("SELECT * FROM questions;");
+    QSqlQuery query;
+    QString str3 = QString("%1 %2").arg("USE").arg(mSqlDatabase.databaseName());
+    if (query.exec(str3))
+    {
+        qDebug() << "Временная база установлена по умолчанию";
+    }
 
-        QSqlRecord rec = query.record();
-        while (query.next())
+    query.exec("SELECT * FROM questions;");
+
+    QSqlRecord rec = query.record();
+
+    while (query.next())
         {
             QString StrQuestion = query.value(rec.indexOf("question")).toString();
             if ((StrQuestion == strS1) || (StrQuestion == strS2))
