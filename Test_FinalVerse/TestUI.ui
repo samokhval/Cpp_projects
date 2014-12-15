@@ -142,11 +142,6 @@
    </property>
    <column>
     <property name="text">
-     <string>№</string>
-    </property>
-   </column>
-   <column>
-    <property name="text">
      <string>Вопрос</string>
     </property>
    </column>
