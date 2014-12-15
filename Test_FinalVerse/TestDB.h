@@ -5,7 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
-#include "qDebug"
+
 
 typedef int tID;
 typedef int tCount;

@@ -9,7 +9,7 @@
 
 const int max = 10;
 
-class TestQuestions//: public AbstractUI
+class TestQuestions: public AbstractUI
 {
     int m_questionID;
     int m_count1;

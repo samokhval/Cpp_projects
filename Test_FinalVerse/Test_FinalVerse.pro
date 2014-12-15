@@ -24,3 +24,5 @@ HEADERS  += TestUI.h \
     AbstractUI.h
 
 FORMS    += TestUI.ui
+
+RESOURCES += ui_icon.qrc
