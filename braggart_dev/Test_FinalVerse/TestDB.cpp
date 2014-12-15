@@ -32,7 +32,7 @@ void TestDB::CreateTable()
 }
 
 //проверка значений на дублирование
-bool TestDB::CheckDublicate(int count1,int count2, QString sign)
+bool TestDB::CheckDublicate(tCount count1,tCount count2, tSign sign)
 {
     QSqlQuery query;
     bool dublicate = false;
@@ -61,48 +61,8 @@ bool TestDB::CheckDublicate(int count1,int count2, QString sign)
     return dublicate;
 }
 
-//Передача результата для вывода в таблицу
-void TestDB::GetBasesData()
-{
-    QSqlQuery query;
-    TestQuestions obj_Q;
-    TestUI obj_UI;
-    UITableWidget obj_Table;
 
-    int right = 0;
-    int wrong = 0;
-
-    QString Result;
-
-    if (!query.exec("SELECT * FROM questions;"))
-    {
-        qDebug() << "Невозможно выполнить запрос";
-        return;
-    }
-
-    QSqlRecord rec = query.record();
-
-    while (query.next())
-    {
-        int nID = query.value(rec.indexOf("id")).toInt();
-        QString StrQuestion = query.value(rec.indexOf("question")).toString();
-        int IntRight_answer = query.value(rec.indexOf("right_answer")).toInt();
-        int IntUser_answer = query.value(rec.indexOf("user_answer")).toInt();
-
-        if ( IntUser_answer == IntRight_answer) {right++; Result = "+";}
-        else {wrong++;  Result = "-";}
-        qDebug() << nID << " " << StrQuestion << " = " << IntUser_answer << " " << Result;
-        obj_Table.setTableItem(nID,StrQuestion,IntRight_answer,IntUser_answer,Result);
-    }
-    qDebug() << QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(obj_Q.getMaxQuestion()).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!");
-    //ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
-    //ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);
-    //ui->tableWidget->setVisible(true);
-    //ui->pushButton_2->setVisible(false);
-    //repaint();
-}
-
-void TestDB::InsertValue(int id, int count1, int count2, QString sign, int RightAnswer)
+void TestDB::InsertValue(tID id, tCount count1, tCount count2, tSign sign, tAnswer RightAnswer)
 {
     QSqlQuery query;
 
@@ -121,7 +81,7 @@ void TestDB::InsertValue(int id, int count1, int count2, QString sign, int Right
 
 }
 
-QString TestDB::GetQuestion(int id)
+QString TestDB::GetQuestion(tID id)
 {
 
     QSqlQuery query;
@@ -138,7 +98,7 @@ QString TestDB::GetQuestion(int id)
     }
 }
 
-void TestDB::SetUserData(int id, int user_answer)
+void TestDB::SetUserData(tID id, tAnswer user_answer)
 {
     QSqlQuery query;
 

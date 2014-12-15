@@ -22,8 +22,6 @@ TestUI::TestUI(QWidget *parent) :
     ui->label_2->setVisible(false);
     ui->lineEdit->setVisible(false);
     ui->pushButton_2->setEnabled(false);
-    ui->tableWidget->setRowCount(10);
-    ui->tableWidget->setColumnCount(5);
 
     m_StateTest = 1;
     m_UserAnswer = 0;
@@ -88,23 +86,57 @@ void TestUI::setText(QString s)
 
 void TestUI::ResultTest()
 {
-  TestDB obj_DB;
-  UITableWidget obj_Table;
-
   setSizeUI(400,486);
-  obj_DB.GetBasesData();
 
-  obj_Table.testInsert();
-  obj_Table.repaint();
+  TestDB obj_DB;
+  QSqlQuery query;
+  TestQuestions obj_Q;
 
+  int right = 0;
+  int wrong = 0;
+
+  ui->tableWidget->setRowCount(obj_Q.getMaxQuestion());
+  ui->tableWidget->setColumnCount(4);
+
+  QString Result;
+
+  if (!query.exec("SELECT * FROM questions;"))
+  {
+      qDebug() << "Невозможно выполнить запрос";
+      return;
+  }
+
+  QSqlRecord rec = query.record();
+
+  while (query.next())
+  {
+      int nID = query.value(rec.indexOf("id")).toInt();
+      QString StrQuestion = query.value(rec.indexOf("question")).toString();
+      int IntRight_answer = query.value(rec.indexOf("right_answer")).toInt();
+      int IntUser_answer = query.value(rec.indexOf("user_answer")).toInt();
+
+      if ( IntUser_answer == IntRight_answer) {right++; Result = "+";}
+      else {wrong++;  Result = "-";}
+      qDebug() << nID << " " << StrQuestion << " = " << IntUser_answer << " " << Result;
+
+      QTableWidgetItem *newItem1 = new QTableWidgetItem(QString(StrQuestion));
+      QTableWidgetItem *newItem2 = new QTableWidgetItem(QString::number(IntRight_answer));
+      QTableWidgetItem *newItem3 = new QTableWidgetItem(QString::number(IntUser_answer));
+      QTableWidgetItem *newItem4 = new QTableWidgetItem(QString(Result));
+
+      ui->tableWidget->setItem(nID-1,0,newItem1);
+      ui->tableWidget->setItem(nID-1,1,newItem2);
+      ui->tableWidget->setItem(nID-1,2,newItem3);
+      ui->tableWidget->setItem(nID-1,3,newItem4);
+
+      ui->tableWidget->repaint();
+
+  }
+  qDebug() << QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(obj_Q.getMaxQuestion()).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!");
+  //ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
+  ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);
   repaint();
 
-}
-
-void UITableWidget::testInsert()
-{
-    ui->tableWidget->insertRow(0);
-    ui->tableWidget->setItem(0,1,new QTableWidgetItem("Item1"));
 }
 
 void TestUI::GetAnswer()
@@ -142,32 +174,6 @@ void TestUI::GetAnswer()
 void TestUI::setValuePB(int i)
 {
     emit sendSignalPB(i);
-}
-
-void UITableWidget::setTableItem(int id, QString question, int RightAnswer, int UserAnswer, QString result)
-{
-
-    ui->tableWidget->insertRow(id-1);
-    ui->tableWidget->setItem(id-1,1,new QTableWidgetItem(QString(question)));
-
-
-    QTableWidgetItem *newItem1 = new QTableWidgetItem(QString::number(id));
-    //QTableWidgetItem *newItem2 = new QTableWidgetItem(QString(question));
-    //QTableWidgetItem *newItem2 = new QTableWidgetItem("wewee");
-    QTableWidgetItem *newItem3 = new QTableWidgetItem(QString::number(RightAnswer));
-    QTableWidgetItem *newItem4 = new QTableWidgetItem(QString::number(UserAnswer));
-    QTableWidgetItem *newItem5 = new QTableWidgetItem(QString(result));
-
-    ui->tableWidget->setItem(id-1,0,newItem1);
-    //ui->tableWidget->setItem(id-1,1,newItem2);
-    ui->tableWidget->setItem(id-1,2,newItem3);
-    ui->tableWidget->setItem(id-1,3,newItem4);
-    ui->tableWidget->setItem(id-1,4,newItem5);
-
-    QTableWidgetItem *pCell = new QTableWidgetItem;
-    pCell->setText("LaVe");
-    ui->tableWidget->setItem(0, 1, pCell);
-
 }
 
 void TestUI::on_pushButton_3_clicked()

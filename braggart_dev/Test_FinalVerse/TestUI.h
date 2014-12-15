@@ -11,8 +11,6 @@
 
 namespace Ui {
 class TestUI;
-class UITTableWidget;
-
 }
 
 class TestUI : public QDialog
@@ -45,16 +43,6 @@ signals:
 
 private slots:
     void on_pushButton_3_clicked();
-};
-
-
-class UITableWidget : public TestUI
-{
-
-public:
-
-    void setTableItem(int id, QString question, int RightAnswer, int UserAnswer, QString result);
-    void testInsert();
 };
 
 #endif // TESTUI_H
