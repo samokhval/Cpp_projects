@@ -129,9 +129,13 @@ void TestUI::ResultTest()
       ui->tableWidget->setItem(nID-1,2,newItem3);
       ui->tableWidget->setItem(nID-1,3,newItem4);
 
-      ui->tableWidget->repaint();
+      //ui->tableWidget->item(nID-1,0)->setTextAlignment(Qt::AlignHCenter);
+      //ui->tableWidget->item(nID-1,1)->setTextAlignment(Qt::AlignHCenter);
+      //ui->tableWidget->item(nID-1,2)->setTextAlignment(Qt::AlignHCenter);
 
+      ui->tableWidget->repaint();
   }
+
   qDebug() << QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(obj_Q.getMaxQuestion()).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!");
   //ui->label_5->setText(QString("%1 %2 %3 %4 %5 %6 %7").arg("Из ").arg(max).arg(" вопросов, вы ответили правильно на ").arg(right).arg(" и на ").arg(wrong).arg("неверно!"));
   ui->tableWidget->setEditTriggers(QTableWidget::NoEditTriggers);

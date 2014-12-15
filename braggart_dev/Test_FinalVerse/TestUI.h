@@ -4,10 +4,10 @@
 #include "TestQuestions.h"
 #include "TestDB.h"
 #include <QDialog>
-#include <QDebug>
 #include <QMessageBox>
 #include <QTableWidgetItem>
 #include <QTableWidget>
+#include <QIcon>
 
 namespace Ui {
 class TestUI;
