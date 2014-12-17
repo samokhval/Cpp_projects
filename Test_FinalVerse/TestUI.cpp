@@ -11,9 +11,9 @@ TestUI::TestUI(QWidget *parent) :
     connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(ResultTest()));
     connect(ui->lineEdit,SIGNAL(returnPressed()),this ,SLOT(GetAnswer()));
 
-    connect(this,SIGNAL(sendSignal(QString)),this,SLOT(setText(QString)));
-    connect(this,SIGNAL(sendSignalPB(int)),ui->progressBar,SLOT(setValue(int)));
-    connect(this,SIGNAL(sendSignalPB2(int)),ui->progressBar,SLOT(setMaximum(int)));
+    connect(this,SIGNAL(setTextLabel2(QString)),this,SLOT(setText(QString)));
+    connect(this,SIGNAL(setProgressBarValue(int)),ui->progressBar,SLOT(setValue(int)));
+    connect(this,SIGNAL(setProgressBarMax(int)),ui->progressBar,SLOT(setMaximum(int)));
 
     ui->lineEdit->setValidator(new QIntValidator(-100, 100, this));
     ui->lineEdit->setAlignment(Qt::AlignHCenter);
@@ -44,7 +44,7 @@ void TestUI::ButtonPress()
 {
     // изучаем цикл жизни переменных
     // что здесь происходит
-    TestQuestions obj_Q;
+    TestQuestions obj_Q[10];
     TestDB obj_DB;
 
     if (ui->lineEdit_2->text().isEmpty())
@@ -66,17 +66,26 @@ void TestUI::ButtonPress()
 
         ui->label->setText("Тестирование началось");
 
+        //Создание временной базы данных
+        obj_DB.CreateTable();
+
+        //Генерация вопросов
+        for (int i = 0; i < max; i++)
+        {
+          obj_Q[i].generateQuestion(i+1);
+        }
+
         //Считывание имени пользователя
         m_UserName = ui->lineEdit_2->text();
 
         //Установка максимального количества вопросов
-        emit sendSignalPB2(obj_Q.getMaxQuestion());
+        emit setProgressBarMax(max);
 
         //Установка позиции ProgressBar
         setValuePB(m_StateTest-1);
 
         //Генерация вопроса и изменение формы
-        emit sendSignal(obj_DB.GetQuestion(m_StateTest));
+        emit setTextLabel2(obj_DB.GetQuestion(m_StateTest));
 
      }
 }
@@ -164,7 +173,7 @@ void TestUI::GetAnswer()
    if (m_StateTest < 11)
    {
        //Генерация вопроса
-       emit sendSignal(obj_DB.GetQuestion(m_StateTest));
+       emit setTextLabel2(obj_DB.GetQuestion(m_StateTest));
 
    }
    else
@@ -179,7 +188,7 @@ void TestUI::GetAnswer()
 
 void TestUI::setValuePB(int i)
 {
-    emit sendSignalPB(i);
+    emit setProgressBarValue(i);
 }
 
 void TestUI::on_pushButton_3_clicked()

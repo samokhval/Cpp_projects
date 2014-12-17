@@ -7,9 +7,7 @@
 #include <TestUI.h>
 #include <AbstractUI.h>
 
-/// Обычно переменные которые служат константами обозначаются static в рамках класса
-/// читаем про static
-const int max = 10;
+static const int max = 10;
 
 class TestQuestions: public AbstractUI
 {
