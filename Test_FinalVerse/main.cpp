@@ -9,7 +9,10 @@ int main(int argc, char *argv[])
     TestDB obj_DB;
 
     obj_DB.CreateTable();
-
+//  Объясни зачем этот объект тут если потом у тебя есть еще
+//    void TestUI::ButtonPress()
+//    {
+//        // изучаем цикл жизни переменных
     int max = obj_Q[0].getMaxQuestion();
 
     for (int i = 0; i < max; i++)

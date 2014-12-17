@@ -42,6 +42,8 @@ void TestUI::setSizeUI(int width, int height)
 
 void TestUI::ButtonPress()
 {
+    // изучаем цикл жизни переменных
+    // что здесь происходит
     TestQuestions obj_Q;
     TestDB obj_DB;
 

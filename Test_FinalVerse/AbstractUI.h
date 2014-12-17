@@ -3,6 +3,8 @@
 
 #include <QtGlobal>
 
+/// смысл названия этого файла для меня не понятен
+/// читаем MVC
 class AbstractUI
 {
 public:

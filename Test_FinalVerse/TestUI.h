@@ -38,7 +38,7 @@ public slots:
 
 signals:
     void sendSignal(QString);
-    void sendSignalPB(int);
+    void sendSignalPB(int); /// название методов очень говорящее
     void sendSignalPB2(int);
 
 private slots:
