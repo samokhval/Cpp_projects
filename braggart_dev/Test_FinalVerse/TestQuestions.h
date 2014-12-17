@@ -7,6 +7,8 @@
 #include <TestUI.h>
 #include <AbstractUI.h>
 
+/// Обычно переменные которые служат константами обозначаются static в рамках класса
+/// читаем про static
 const int max = 10;
 
 class TestQuestions: public AbstractUI
@@ -22,7 +24,7 @@ public:
     void setStartValue();
     void setOperation();
     void generateQuestion(int id);
-    int getMaxQuestion(){return max;}
+    int getMaxQuestion(){return max;} /// это очень странная формулировка, хотя лучше чем публичный член
     int getRightAnswer(){return m_RightAnswer;}
     QString getSignQuestion(){return m_signQustion;}
     int getCount1(){return m_count1;}
