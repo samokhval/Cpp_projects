@@ -37,9 +37,9 @@ public slots:
     void setText(QString);
 
 signals:
-    void sendSignal(QString);
-    void sendSignalPB(int); /// название методов очень говорящее
-    void sendSignalPB2(int);
+    void setTextLabel2(QString);
+    void setProgressBarValue(int);
+    void setProgressBarMax(int);
 
 private slots:
     void on_pushButton_3_clicked();
