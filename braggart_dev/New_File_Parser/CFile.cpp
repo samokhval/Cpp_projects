@@ -1,15 +1,10 @@
 #include "CFile.hpp"
 
-const QString CFile::getName()
+void CFile::getName()
 {
-    QString nameFile = "I am File";
-    qDebug() << nameFile;
-    return nameFile;
+    qDebug() << "Get the filename ";
 }
 
-int CFile::getSize()
+void CFile::addObject(IFileSystemObject *pSystemObject)
 {
-    int size = 0;
-    qDebug() << "Size of File = " << size;
-    return size;
 }

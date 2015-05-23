@@ -9,12 +9,12 @@ class CDirectory : public IFileSystemObject
 {
 public:
     CDirectory(QString path):IFileSystemObject(path){}
-    const QString getName();
-    int getSize();
+    void getName();
     void addObject(IFileSystemObject *pSystemObject);
+    ~CDirectory();
 
 protected:
-    list<IFileSystemObject*> listObj;
+    list<IFileSystemObject*> listObject;
 };
 
 #endif // CDIRECTORY_HPP
