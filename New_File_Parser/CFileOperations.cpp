@@ -7,14 +7,13 @@ CFileOperations::CFileOperations()
 void CFileOperations::findFile(QString name)
 {
     qDebug() << "Find file " << name;
-    //pFileSystemObject->listObj.size();
 }
 
-void CFileOperations::viewDirectoryContent()
+void CFileOperations::viewDirectoryContent(QString path)
 {
     WIN32_FIND_DATA winFileData;
     HANDLE hFile;
-    QString tmpPath = m_path + "\\*.*";
+    QString tmpPath = path + "\\*.*";
 
     hFile = FindFirstFile(tmpPath.toStdString().c_str(),&winFileData);
 
@@ -37,6 +36,5 @@ void CFileOperations::viewDirectoryContent()
 
 void CFileOperations::setPath(QString path)
 {
-    m_path = path;
-    pFileSystemObject = new CDirectory(m_path);
+    pFileSystemObject = new CDirectory(path);
 }

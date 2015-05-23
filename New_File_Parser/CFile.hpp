@@ -6,7 +6,7 @@
 class CFile : public IFileSystemObject
 {
 public:
-    CFile(QString path):IFileSystemObject(path){qDebug() << "Constructor of File" << path;}
+    CFile(QString path):IFileSystemObject(path){}
     const QString getName();
     int getSize();
     //virtual void addObject(IFileSystemObject *pSystemObject);
