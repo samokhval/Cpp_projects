@@ -8,8 +8,8 @@ using namespace std;
 class CDirectory : public IFileSystemObject
 {
 public:
-    CDirectory(QString path):IFileSystemObject(path){}
-    void getName();
+    CDirectory(QString path){}
+    void getObjectName(QString path);
     void addObject(IFileSystemObject *pSystemObject);
     ~CDirectory();
 

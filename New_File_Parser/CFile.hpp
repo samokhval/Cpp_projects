@@ -6,8 +6,8 @@
 class CFile : public IFileSystemObject
 {
 public:
-    CFile(QString path):IFileSystemObject(path){}
-    void getName();
+    CFile(QString path){}
+    void getObjectName(QString path);
     virtual void addObject(IFileSystemObject *pSystemObject);
 };
 
