@@ -8,7 +8,7 @@ using namespace std;
 class CDirectory : public IFileSystemObject
 {
 public:
-    CDirectory(QString path):IFileSystemObject(path){qDebug() << "Constructor of File" << path;}
+    CDirectory(QString path):IFileSystemObject(path){}
     const QString getName();
     int getSize();
     void addObject(IFileSystemObject *pSystemObject);

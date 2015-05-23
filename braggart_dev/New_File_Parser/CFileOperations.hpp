@@ -12,13 +12,11 @@ public:
     CFileOperations();
     void setPath(QString path);
     void findFile(QString name);
-    void viewDirectoryContent();
+    void viewDirectoryContent(QString path);
     ~CFileOperations(){delete pFileSystemObject;}
 
 protected:
     IFileSystemObject *pFileSystemObject;
-private:
-    QString m_path;
 };
 
 #endif // CFILEOPERATIONS_HPP

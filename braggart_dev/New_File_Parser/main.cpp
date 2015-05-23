@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 
                 pFileOperations = new CFileOperations();
                 pFileOperations->setPath(newPath);
-                pFileOperations->viewDirectoryContent();
+                pFileOperations->viewDirectoryContent(newPath);
                 cout << newPath.toStdString() + "\\";
             }
             else
@@ -57,6 +57,7 @@ int main(int argc, char *argv[])
         else
         {
             cout << "Wrong command!!! Entered a new command or 'quit' for exit" << endl;
+            cout << cmdline;
         }
     }
       while (inputLine != "quit");
