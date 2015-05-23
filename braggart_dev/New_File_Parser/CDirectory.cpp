@@ -1,13 +1,13 @@
 #include "CDirectory.hpp"
 #include "CFile.hpp"
 
-void CDirectory::getName()
+void CDirectory::getObjectName(QString path)
 {
     WIN32_FIND_DATA winFileData;
     HANDLE hFile;
-    QString tmpPath = m_fullPath + "\\*.*";
+    QString tmpPath = path + "\\*.*";
     QString buffer;
-    CDirectory *pDir = new CDirectory(m_fullPath);
+    CDirectory *pDir = new CDirectory(path);
 
     hFile = FindFirstFile(tmpPath.toStdString().c_str(),&winFileData);
 
@@ -20,12 +20,13 @@ void CDirectory::getName()
 
             if (winFileData.dwFileAttributes&FILE_ATTRIBUTE_DIRECTORY)
             {
-                buffer = m_fullPath + "\\" + winFileData.cFileName;
+                buffer = path + "\\" + winFileData.cFileName;
                 addObject(pDir);
+                getObjectName(buffer);
             }
             else
             {
-                buffer = m_fullPath + "\\" + winFileData.cFileName;
+                buffer = path + "\\" + winFileData.cFileName;
                 addObject(new CFile(buffer));
             }
 

@@ -10,11 +10,9 @@ class IFileSystemObject
 {
 
 public:
-    IFileSystemObject(QString path):m_fullPath(path){}
-    virtual void getName() = 0;
+    virtual void getObjectName(QString path) = 0;
     virtual void addObject(IFileSystemObject *pSystemObject) = 0;
     virtual ~IFileSystemObject(){}
-    QString m_fullPath;
 };
 
 #endif // IFILESYSTEMOBJECT_HPP
