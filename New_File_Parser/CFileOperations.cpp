@@ -37,4 +37,5 @@ void CFileOperations::viewDirectoryContent(QString path)
 void CFileOperations::setPath(QString path)
 {
     pFileSystemObject = new CDirectory(path);
+    pFileSystemObject->getName();
 }
