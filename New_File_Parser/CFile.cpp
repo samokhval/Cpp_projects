@@ -1,8 +1,9 @@
 #include "CFile.hpp"
 
-void CFile::getObjectName(QString path)
+QString CFile::getObjectName()
 {
-    qDebug() << "Get the filename " << path;
+    QString str = "I am File";
+    return str;
 }
 
 void CFile::addObject(IFileSystemObject *pSystemObject)

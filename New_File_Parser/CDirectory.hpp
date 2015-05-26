@@ -8,13 +8,11 @@ using namespace std;
 class CDirectory : public IFileSystemObject
 {
 public:
-    CDirectory(QString path){}
-    void getObjectName(QString path);
+    CDirectory(QString path):IFileSystemObject(path){}
+    QString getObjectName();
     void addObject(IFileSystemObject *pSystemObject);
-    ~CDirectory();
-
-protected:
     list<IFileSystemObject*> listObject;
+    ~CDirectory();
 };
 
 #endif // CDIRECTORY_HPP

@@ -1,5 +1,6 @@
 #include "IFileOperations.hpp"
 #include "CDirectory.hpp"
+#include "CFile.hpp"
 
 #ifndef CFILEOPERATIONS_HPP
 #define CFILEOPERATIONS_HPP
@@ -13,10 +14,10 @@ public:
     void setPath(QString path);
     void findFile(QString name);
     void viewDirectoryContent(QString path);
-    ~CFileOperations(){delete pFileSystemObject;}
+    ~CFileOperations(){delete rootDir;}
 
 protected:
-    IFileSystemObject *pFileSystemObject;
+    CDirectory *rootDir;
 };
 
 #endif // CFILEOPERATIONS_HPP
