@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <iostream>
 #include <windows.h>
+#include <string>
 
 using namespace std;
 
@@ -12,12 +13,13 @@ int main(int argc, char *argv[])
 
     char cmdline[MAX_PATH];
     string inputLine;
-    IFileOperations *pFileOperations;
-
+    IFileOperations *pOperation;
+    QString tmp_path;
 
     GetCurrentDirectoryA(sizeof(cmdline),cmdline);
     strcat(cmdline,"\\");
     cout << cmdline;
+    tmp_path = cmdline;
 
     do
     {
@@ -31,37 +33,35 @@ int main(int argc, char *argv[])
         else if ((inputLine.substr(0,2) == "cd") && (inputLine.substr(2,1) == " "))
         {
             QString newPath = QString::fromStdString(inputLine.substr(3,inputLine.length()-1));
+
             if(SetCurrentDirectory(newPath.toStdString().c_str()))
             {
-
-                pFileOperations = new CFileOperations();
-                pFileOperations->setPath(newPath);
-                pFileOperations->viewDirectoryContent(newPath);
-                cout << newPath.toStdString() + "\\";
+                pOperation = new CFileOperations();
+                pOperation->setPath(newPath);
+                tmp_path = newPath;
             }
             else
             {
                 cout << "Path not found!" << endl;
-                cout << cmdline;
+                cout << tmp_path.toStdString() << "\\";
             }
         }
-        else if (inputLine == "find")
+        else if ((inputLine.substr(0,4) == "find") && (inputLine.substr(4,1) == " "))
         {
-             cout << "start find!" << endl;
+            QString fileMask = QString::fromStdString(inputLine.substr(5,inputLine.length()-1));
+            pOperation->findFile(fileMask);
+            cout << tmp_path.toStdString() << "\\";
         }
-        else if (inputLine == "list")
-        {
-             cout << "list" << endl;
-        }
-
         else
         {
             cout << "Wrong command!!! Entered a new command or 'quit' for exit" << endl;
-            cout << cmdline;
+            cout << tmp_path.toStdString();
         }
     }
       while (inputLine != "quit");
 
-    delete pFileOperations;
+    delete pOperation;
+
+
     return a.exec();
 }
