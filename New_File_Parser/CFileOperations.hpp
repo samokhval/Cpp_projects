@@ -1,9 +1,11 @@
+#ifndef CFILEOPERATIONS_HPP
+#define CFILEOPERATIONS_HPP
+
 #include "IFileOperations.hpp"
 #include "CDirectory.hpp"
 #include "CFile.hpp"
-
-#ifndef CFILEOPERATIONS_HPP
-#define CFILEOPERATIONS_HPP
+#include <windows.h>
+#include <iostream>
 
 using namespace std;
 
@@ -14,10 +16,10 @@ public:
     void setPath(QString path);
     void findFile(QString name);
     void viewDirectoryContent(QString path);
-    ~CFileOperations(){delete rootDir;}
+    ~CFileOperations(){delete pObject;}
 
-protected:
-    CDirectory *rootDir;
+private:
+    CDirectory *pObject;
 };
 
 #endif // CFILEOPERATIONS_HPP
