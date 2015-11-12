@@ -13,49 +13,46 @@ Starfleet::Starfleet()
 
         while (!dataFile.eof())
         {
-            Ships[count_ship] = new Ship;
-            dataFile.getline(buff,S_SIZE);
-            if (strlen(buff) != 0)
+
+            for (int i = 0; i < 6; i++)
             {
-                  if (step == 0)
+                dataFile.getline(buff,S_SIZE);
+                if (strlen(buff) != 0)
+                {
+                  if (i == 0)
                   {
+                      Ships[count_ship] = new Ship;
+                      cout << "count_ship in begin = " << count_ship << endl;
                       Ships[count_ship]->name = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->name, buff);
-                      cout << Ships[count_ship]->name << endl;
+                      strcpy(Ships[count_ship]->name, buff);                      
                   }
-                  else if (step == 1)
+                  else if (i == 1)
                   {
                       Ships[count_ship]->registry = atoi(buff);
                   }
-                  else if (step == 2)
+                  else if (i == 2)
                   {
                       Ships[count_ship]->type = new char[strlen(buff) + 1];
                       strcpy(Ships[count_ship]->type, buff);
                   }
-                  else if (step == 3)
+                  else if (i == 3)
                   {
                       Ships[count_ship]->position = new char[strlen(buff) + 1];
                       strcpy(Ships[count_ship]->position, buff);
                   }
-                  else if (step == 4)
+                  else if (i == 4)
                   {
                       Ships[count_ship]->condition = new char[strlen(buff) + 1];
                       strcpy(Ships[count_ship]->condition, buff);
                   }
-                  else if (step == 5)
+                  else if (i == 5)
                   {
                       Ships[count_ship]->captain = new char[strlen(buff) + 1];
                       strcpy(Ships[count_ship]->captain, buff);
                   }
+               }
             }
-
-            if (step > 4)
-            {
-               step = 0;
-               count_ship++;
-            }
-            else
-               step++;
+            count_ship++;
         }
         dataFile.close();
     }
@@ -79,6 +76,7 @@ Starfleet::~Starfleet()//a Starfleet destructor
 
 void Starfleet::display_All_Fleet()
 {
+    cout << "count_ship = " << count_ship << endl;
     if (count_ship != 0)
     {
         cout << endl;
@@ -111,7 +109,6 @@ void Starfleet::add_Ship()
     char tempCondition[S_SIZE];
     char tempCaptain[S_SIZE];
 
-    count_ship++;
     ofstream  output_File(FILE_NAME, ios::app);
     Ships[count_ship] = new Ship;
 
@@ -160,6 +157,8 @@ void Starfleet::add_Ship()
     Ships[count_ship]->captain = new char[strlen(tempCaptain) + 1];
     strcpy(Ships[count_ship]->captain, tempCaptain);
     output_File << Ships[count_ship]->captain << endl;
+
+    count_ship++;
 
     output_File.close();
     cout << "The new ship succefully added to the Starfleet!" << endl;
