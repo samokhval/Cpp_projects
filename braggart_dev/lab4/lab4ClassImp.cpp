@@ -6,7 +6,7 @@ Starfleet::Starfleet()
     count_ship = 0;
 
     char buff[S_SIZE];
-    int step = 0;
+
     if (dataFile)
     {
         dataFile.open(FILE_NAME, fstream::app);
@@ -20,36 +20,35 @@ Starfleet::Starfleet()
                 dataFile.getline(buff,S_SIZE);
                 if (strlen(buff) != 0)
                 {
-                  if (i == 0)
+                  switch (i)
                   {
-                      Ships[count_ship]->name = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->name, buff);
-                  }
-                  else if (i == 1)
-                  {
-                      Ships[count_ship]->registry = atoi(buff);
-                  }
-                  else if (i == 2)
-                  {
-                      Ships[count_ship]->type = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->type, buff);
-                  }
-                  else if (i == 3)
-                  {
-                      Ships[count_ship]->position = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->position, buff);
-                  }
-                  else if (i == 4)
-                  {
-                      Ships[count_ship]->condition = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->condition, buff);
-                  }
-                  else if (i == 5)
-                  {
-                      Ships[count_ship]->captain = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->captain, buff);
-                  }
-               }
+                    case 0:
+                           Ships[count_ship]->name = new char[strlen(buff) + 1];
+                           strcpy(Ships[count_ship]->name, buff);
+                           break;
+                    case 1:
+                           Ships[count_ship]->registry = atoi(buff);
+                           break;
+                    case 2:
+                           Ships[count_ship]->type = new char[strlen(buff) + 1];
+                           strcpy(Ships[count_ship]->type, buff);
+                           break;
+                    case 3:
+                           Ships[count_ship]->position = new char[strlen(buff) + 1];
+                           strcpy(Ships[count_ship]->position, buff);
+                           break;
+                    case 4:
+                           Ships[count_ship]->condition = new char[strlen(buff) + 1];
+                           strcpy(Ships[count_ship]->condition, buff);
+                           break;
+                    case 5:
+                           Ships[count_ship]->captain = new char[strlen(buff) + 1];
+                           strcpy(Ships[count_ship]->captain, buff);
+                           break;
+                    default:
+                           break;
+                }
+              }
             }
             count_ship++;
         }
