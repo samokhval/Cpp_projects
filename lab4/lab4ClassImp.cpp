@@ -13,6 +13,7 @@ Starfleet::Starfleet()
 
         while (!dataFile.eof())
         {
+            Ships[count_ship] = new Ship;
 
             for (int i = 0; i < 6; i++)
             {
@@ -21,10 +22,8 @@ Starfleet::Starfleet()
                 {
                   if (i == 0)
                   {
-                      Ships[count_ship] = new Ship;
-                      cout << "count_ship in begin = " << count_ship << endl;
                       Ships[count_ship]->name = new char[strlen(buff) + 1];
-                      strcpy(Ships[count_ship]->name, buff);                      
+                      strcpy(Ships[count_ship]->name, buff);
                   }
                   else if (i == 1)
                   {
@@ -55,6 +54,8 @@ Starfleet::Starfleet()
             count_ship++;
         }
         dataFile.close();
+
+        if (Ships[count_ship] != NULL) count_ship--;
     }
     else cout << " Input file doesn't exists!" << endl;
 }
