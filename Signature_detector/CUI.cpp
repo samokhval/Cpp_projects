@@ -28,6 +28,8 @@ void CUI::on_buttonChangeDir_clicked()
     pScanner->setCountFiles(ui->selectPath->text());
     ui->progressBar->setRange(0,pScanner->getCountFiles());
     ui->progressBar->setMaximum(pScanner->getCountFiles());
+    ui->progressBar->setValue(0);
+    ui->progressBar->repaint();
     ui->label_2->setText("");
 }
 

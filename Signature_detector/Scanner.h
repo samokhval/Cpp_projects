@@ -29,7 +29,7 @@ public:
     void viewDirContent();
     void setFilePath(QString pathDir);
     void setCountFiles(QString pathDir);
-    int getCountFiles(){return countFiles;}
+    int getCountFiles();
     void saveToFile(QString inputString);
     ~Scanner();
 private:
