@@ -5,6 +5,7 @@ Scanner::Scanner()
     pUI = new CUI;
     pUI->getRefScanner(this);
     loadDataBase();
+    countFiles = 0;
 }
 
 void Scanner::loadDataBase()
@@ -33,7 +34,6 @@ void Scanner::showUI()
 void Scanner::setFilePath(QString pathDir)
 {
     mFilePath = pathDir;
-    countFiles = 0;
 }
 
 void Scanner::setCountFiles(QString pathDir)
@@ -46,6 +46,11 @@ void Scanner::setCountFiles(QString pathDir)
     {
        setCountFiles(lDir.absoluteFilePath());
     }    
+}
+
+int Scanner::getCountFiles()
+{
+    return countFiles;
 }
 
 void Scanner::viewDirContent()
@@ -67,6 +72,7 @@ void Scanner::viewDirContent()
         }
         delete pFile;
     }
+    countFiles = 0;
 }
 
 void Scanner::saveToFile(QString inputString)
