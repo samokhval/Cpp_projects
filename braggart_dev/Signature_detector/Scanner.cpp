@@ -4,7 +4,6 @@ Scanner::Scanner()
 {
     pUI = new CUI;
     pUI->getRefScanner(this);
-    countFiles = 0;
     loadDataBase();
 }
 
@@ -34,6 +33,7 @@ void Scanner::showUI()
 void Scanner::setFilePath(QString pathDir)
 {
     mFilePath = pathDir;
+    countFiles = 0;
 }
 
 void Scanner::setCountFiles(QString pathDir)
