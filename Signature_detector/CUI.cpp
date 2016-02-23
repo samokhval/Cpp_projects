@@ -25,6 +25,10 @@ void CUI::on_buttonChangeDir_clicked()
     rootPath = QFileDialog::getExistingDirectory(this, tr("Select Directory"),"",QFileDialog::ShowDirsOnly|QFileDialog::DontResolveSymlinks);
     ui->selectPath->setText(rootPath);
     pScanner->setFilePath(ui->selectPath->text());
+    pScanner->setCountFiles(ui->selectPath->text());
+    ui->progressBar->setRange(0,pScanner->getCountFiles());
+    ui->progressBar->setMaximum(pScanner->getCountFiles());
+    ui->label_2->setText("");
 }
 
 void CUI::setValueProgressBar()
@@ -35,9 +39,6 @@ void CUI::setValueProgressBar()
 
 void CUI::on_buttonStart_clicked()
 {
-    pScanner->setCountFiles(ui->selectPath->text());
-    ui->progressBar->setRange(0,pScanner->getCountFiles());
-    ui->progressBar->setMaximum(pScanner->getCountFiles());
     std::thread t(&Scanner::viewDirContent,pScanner);
     t.detach();
 }
