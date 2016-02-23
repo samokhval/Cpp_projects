@@ -12,7 +12,6 @@ CUI::CUI(QWidget *parent) :
 CUI::~CUI()
 {
     delete ui;
-    delete pScanner;
 }
 
 void CUI::getRefScanner(Scanner *refScanner)
