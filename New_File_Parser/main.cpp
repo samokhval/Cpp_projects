@@ -1,3 +1,6 @@
+/*
+The simple program for change Directory, find file in the Directory
+*/
 #include <QCoreApplication>
 #include "CFileOperations.hpp"
 #include <QDebug>
@@ -10,7 +13,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-
+	
     char cmdline[MAX_PATH];
     string inputLine;
     IFileOperations *pOperation;
