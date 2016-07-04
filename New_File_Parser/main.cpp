@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
     IFileOperations *pOperation;
     QString tmp_path;
 
+    cout << endl << "Welcome!!! Entered next command: cd - change directory and show it content, find - find file by mask or 'quit' for exit" << endl << endl;
+
     GetCurrentDirectoryA(sizeof(cmdline),cmdline);
     strcat(cmdline,"\\");
     cout << cmdline;
@@ -57,7 +59,7 @@ int main(int argc, char *argv[])
         }
         else
         {
-            cout << "Wrong command!!! Entered a new command or 'quit' for exit" << endl;
+            cout << "Wrong command!!! Entered next command: cd - change directory and show it content, find - find file or 'quit' for exit" << endl;
             cout << tmp_path.toStdString();
         }
     }
