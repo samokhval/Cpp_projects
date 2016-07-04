@@ -15,8 +15,8 @@
 
 using namespace std;
 
-const QString INPUT_FILENAME = "base.in";
-const QString OUTPUT_FILENAME = "result.out";
+const QString INPUT_FILENAME = QString::fromUtf8(PRO_FILE_PWD)+"/base.in";
+const QString OUTPUT_FILENAME = QString::fromUtf8(PRO_FILE_PWD)+"/result.out";
 
 class CUI;
 

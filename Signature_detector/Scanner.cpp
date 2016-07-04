@@ -66,6 +66,7 @@ void Scanner::viewDirContent()
         std::thread t(&CFile::scanFile,pFile,&mListMask);
         t.join();
         matchingList = pFile->getResultScan();
+        pUI->setLabelText("");
         for (list<QString>::iterator it = matchingList.begin(); it != matchingList.end(); ++it)
         {
             saveToFile(*it);

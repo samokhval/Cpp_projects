@@ -23,3 +23,5 @@ HEADERS  += CUI.h \
     CFile.h
 
 FORMS    += CUI.ui
+
+DEFINES += PRO_FILE_PWD=$$sprintf("\"\\\"%1\\\"\"", $$_PRO_FILE_PWD_)
