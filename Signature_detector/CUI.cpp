@@ -7,6 +7,10 @@ CUI::CUI(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(this,SIGNAL(signalToPB()),this,SLOT(setValueProgressBar()),Qt::AutoConnection);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->tableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    //table->horizontalHeaderItem(0)->setSizeHint(x,y);
+
 }
 
 CUI::~CUI()
@@ -23,14 +27,16 @@ void CUI::on_buttonChangeDir_clicked()
 {   
     QString rootPath;
     rootPath = QFileDialog::getExistingDirectory(this, tr("Select Directory"),"",QFileDialog::ShowDirsOnly|QFileDialog::DontResolveSymlinks);
+    pScanner->setFilePath(rootPath);
+    pScanner->setCountFiles(rootPath);
     ui->selectPath->setText(rootPath);
-    pScanner->setFilePath(ui->selectPath->text());
-    pScanner->setCountFiles(ui->selectPath->text());
     ui->progressBar->setRange(0,pScanner->getCountFiles());
     ui->progressBar->setMaximum(pScanner->getCountFiles());
     ui->progressBar->setValue(0);
     ui->progressBar->repaint();
     ui->label_2->setText("");
+
+
 }
 
 void CUI::setValueProgressBar()
@@ -45,6 +51,20 @@ void CUI::on_buttonStart_clicked()
     t.detach();
 }
 
+void CUI::setCountRow(int c)
+{
+    ui->tableWidget->setRowCount(c);
+}
+
+void CUI::addNewStringToTab(QString newStr)
+{
+    static int count = 0;
+    QTableWidgetItem *item = new QTableWidgetItem();
+    item->setText(newStr);
+    ui->tableWidget->setItem(count, 0, item);
+    count++;
+}
+
 void CUI::on_buttonClose_clicked()
 {
     close();
@@ -54,3 +74,4 @@ void CUI::setLabelText(QString nameFile)
 {
     ui->label_2->setText(nameFile);
 }
+

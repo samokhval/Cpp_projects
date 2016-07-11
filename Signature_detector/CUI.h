@@ -19,7 +19,9 @@ class CUI : public QMainWindow
 public:
     CUI(QWidget *parent = 0);
     void setLabelText(QString nameFile);
+    void setCountRow(int c);
     void getRefScanner(Scanner *refScanner);
+    void addNewStringToTab(QString newStr);
     ~CUI();
 
 signals:

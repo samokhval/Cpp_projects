@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>425</width>
-    <height>223</height>
+    <height>226</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -110,6 +110,32 @@
     <property name="text">
      <string>Close program</string>
     </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>400</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="maximumSize">
+     <size>
+      <width>400</width>
+      <height>221</height>
+     </size>
+    </property>
+    <column>
+     <property name="text">
+      <string>Filename</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>GUID</string>
+     </property>
+    </column>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">

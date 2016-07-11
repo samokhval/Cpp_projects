@@ -12,7 +12,7 @@ class CFile
 {
 public:
     CFile(QString fileName);
-    void scanFile(list<QString> *mask);
+    void scanFile(const QMap<QString, QString> *mask);
     list<QString> getResultScan() const {return mResult;}
 private:
     QString mFileName;

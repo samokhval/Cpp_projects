@@ -6,9 +6,12 @@
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QDebug>
+#include <QTextCodec>
+#include <QMap>
 #include <iostream>
 #include <fstream>
 #include <ctime>
+#include <string>
 
 #include "CUI.h"
 #include "CFile.h"
@@ -29,15 +32,16 @@ public:
     void viewDirContent();
     void setFilePath(QString pathDir);
     void setCountFiles(QString pathDir);
+    void setUISize(int width,int height);
     int getCountFiles();
-    void saveToFile(QString inputString);
+    void saveToFile(QString inputString);    
     ~Scanner();
 private:
     CUI *pUI;
     CFile *pFile;
     QString mFilePath;
     int countFiles;
-    list<QString> mListMask;
+    QMap<QString,QString> mList;
 };
 
 #endif // SCANNER_H

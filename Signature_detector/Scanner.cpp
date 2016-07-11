@@ -11,20 +11,26 @@ Scanner::Scanner()
 void Scanner::loadDataBase()
 {
     string new_line;
+    size_t n;
+    QByteArray reply8bit;
+    QString replyUnicode;
     ifstream myfile(INPUT_FILENAME.toStdString());
     if (myfile.is_open())
     {
         while ( getline (myfile,new_line))
         {
-          mListMask.push_back(QString::fromStdString(new_line));
+          n = new_line.find(".{");
+          reply8bit = QByteArray::fromHex(new_line.substr(0,n).c_str());
+          replyUnicode = QString::fromUtf8(reply8bit);
+          mList.insert(replyUnicode,QString::fromStdString(new_line.substr(n+2,new_line.length() - n - 3)));
         }
+
         qDebug() << "Information from file is loaded successfully";
         myfile.close();
      }
      else
         qDebug() << "Unable to open inputfile " << INPUT_FILENAME;
 }
-
 
 void Scanner::showUI()
 {
@@ -45,7 +51,12 @@ void Scanner::setCountFiles(QString pathDir)
     foreach(QFileInfo lDir, sList)
     {
        setCountFiles(lDir.absoluteFilePath());
-    }    
+    }
+}
+
+void Scanner::setUISize(int width, int height)
+{
+    pUI->setFixedSize(width,height);
 }
 
 int Scanner::getCountFiles()
@@ -63,17 +74,24 @@ void Scanner::viewDirContent()
         pUI->setLabelText(iterator.fileInfo().fileName());
         pUI->signalToPB();
         pFile = new CFile(iterator.fileInfo().absoluteFilePath());
-        std::thread t(&CFile::scanFile,pFile,&mListMask);
-        t.join();
-        matchingList = pFile->getResultScan();
-        pUI->setLabelText("");
-        for (list<QString>::iterator it = matchingList.begin(); it != matchingList.end(); ++it)
+        std::thread t(&CFile::scanFile,pFile,&mList);
+        t.join();        
+        foreach (QString it, pFile->getResultScan())
         {
-            saveToFile(*it);
+            matchingList.push_back(it);
         }
         delete pFile;
     }
-    countFiles = 0;
+
+    pUI->setLabelText("");
+    pUI->setBaseSize(425,485);
+    pUI->setCountRow(matchingList.size());
+
+    for (list<QString>::iterator it = matchingList.begin(); it != matchingList.end(); ++it)
+    {
+        pUI->addNewStringToTab(*it);
+        saveToFile(*it);
+    }
 }
 
 void Scanner::saveToFile(QString inputString)
@@ -91,6 +109,7 @@ void Scanner::saveToFile(QString inputString)
 
 Scanner::~Scanner()
 {
-    delete pUI;    
+    mList.clear();
+    delete pUI;
 }
 
