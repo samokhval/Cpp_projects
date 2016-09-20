@@ -1,0 +1,1 @@
+The program lets you change directory and show it content. Also you can find file by mask in the current folder

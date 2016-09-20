@@ -1,0 +1,1 @@
+The program lets read data from two ports. When on port input appear data then it writes into temporary table. 
