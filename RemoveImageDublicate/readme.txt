@@ -1,1 +1,0 @@
-The program lets delete image dublicate in which coincides exif tag "DateTimeOriginal"
